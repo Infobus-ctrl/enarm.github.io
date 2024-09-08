@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen de Adenocarcinoma Gástrico</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question h3 {
+            color: #555;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        .options label:hover {
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Examen de Adenocarcinoma Gástrico</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <h3>1. ¿Cuál es el factor de riesgo más importante para desarrollar adenocarcinoma gástrico?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="A"> Ingesta de vitamina C</label>
+                    <label><input type="radio" name="q1" value="B"> Infección por Helicobacter pylori</label>
+                    <label><input type="radio" name="q1" value="C"> Consumo de alimentos ricos en fibra</label>
+                    <label><input type="radio" name="q1" value="D"> Hipertensión arterial</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>2. ¿Qué examen es el estándar de oro para el diagnóstico del adenocarcinoma gástrico?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="A"> Endoscopia con biopsia</label>
+                    <label><input type="radio" name="q2" value="B"> Tomografía computarizada</label>
+                    <label><input type="radio" name="q2" value="C"> Resonancia magnética</label>
+                    <label><input type="radio" name="q2" value="D"> Ultrasonido endoscópico</label>
+                </div>
+            </div>
+
+            <!-- Más preguntas aquí -->
+
+            <button type="button" class="button" onclick="submitQuiz()">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        function submitQuiz() {
+            var totalQuestions = 2; // Cambia esto al número total de preguntas
+            var answers = {
+                q1: "B",
+                q2: "A"
+            };
+            var userAnswers = {};
+
+            // Recoge las respuestas del usuario
+            for (var i = 1; i <= totalQuestions; i++) {
+                var q = document.forms["quiz-form"]["q" + i];
+                if (q) {
+                    for (var j = 0; j < q.length; j++) {
+                        if (q[j].checked) {
+                            userAnswers["q" + i] = q[j].value;
+                        }
+                    }
+                }
+            }
+
+            // Guarda las respuestas en el almacenamiento local
+            localStorage.setItem("userAnswers", JSON.stringify(userAnswers));
+            localStorage.setItem("correctAnswers", JSON.stringify(answers));
+
+            // Redirige a la página de resultados
+            window.location.href = "results.html";
+        }
+    </script>
+</body>
+</html>

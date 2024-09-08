@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados del Examen</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .result {
+            margin-bottom: 20px;
+        }
+        .result h3 {
+            color: #555;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resultados del Examen</h1>
+        <div id="result"></div>
+        <button class="button" onclick="window.location.href='index.html'">Volver al Examen</button>
+    </div>
+
+    <script>
+        function displayResults() {
+            var userAnswers = JSON.parse(localStorage.getItem("userAnswers"));
+            var correctAnswers = JSON.parse(localStorage.getItem("correctAnswers"));
+            var totalQuestions = Object.keys(correctAnswers).length;
+            var resultText = "";
+            var correctCount = 0;
+
+            for (var i = 1; i <= totalQuestions; i++) {
+                var userAnswer = userAnswers["q" + i];
+                var correctAnswer = correctAnswers["q" + i];
+
+                resultText += "<p><strong>Pregunta " + i + ":</strong> ";
+
+                if (userAnswer === correctAnswer) {
+                    resultText += "Correcta (Tu respuesta: " + userAnswer + ")";
+                    correctCount++;
+                } else {
+                    resultText += "Incorrecta (Tu respuesta: " + userAnswer + ", Correcta: " + correctAnswer + ")";
+                }
+
+                resultText += "</p>";
+            }
+
+            resultText += "<h3>Respondiste correctamente " + correctCount + " de " + totalQuestions + " preguntas.</h3>";
+            document.getElementById("result").innerHTML = resultText;
+        }
+
+        displayResults();
+    </script>
+</body>
+</html>
